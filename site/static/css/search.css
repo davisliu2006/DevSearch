@@ -1,0 +1,20 @@
+#search {
+    text-align: center;
+}
+#search-title {
+    text-align: center;
+    font-size: 48px;
+}
+#search-bar-holder {
+    font-size: 18px;
+}
+#search-bar {
+    width: 50%;
+    font-size: 18px;
+    padding: 8px 8px 8px 8px;
+    border-radius: 10px;
+}
+#search-btn {
+    font-size: 18px;
+    padding: 8px;
+}

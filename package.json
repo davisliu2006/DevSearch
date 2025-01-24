@@ -1,0 +1,19 @@
+{
+    "name": "WebScraper",
+    "version": "1.0.0",
+    "scripts": {
+        "webserver": "nodemon site/app.ts",
+        "scrape": "nodemon web_scrape/scrape.ts"
+    },
+    "dependencies": {
+        "axios": "^1.7.9",
+        "cheerio": "^1.0.0",
+        "ejs": "^3.1.10",
+        "express": "^4.21.2"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "nodemon": "^3.1.9",
+        "ts-node": "^10.9.2"
+    }
+}
