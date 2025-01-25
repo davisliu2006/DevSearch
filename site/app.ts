@@ -1,7 +1,9 @@
 import * as express from "express";
 import * as fs from "fs";
 import {JobData, JobInfo} from "../include/types";
-import * as lib from "../include/lib"
+import * as lib from "../include/lib";
+
+const DIR = process.cwd();
 
 let app = express();
 app.set("view engine", "ejs");
@@ -16,7 +18,7 @@ app.get("/index", function(req, res) {
     let searchData: Array<JobInfo> = [];
     if (typeof(searchQuery) == "string") {
         let queryTokens = searchQuery.split(' ');
-        let read = fs.readFileSync("data/scrape.json", "utf8");
+        let read = fs.readFileSync(DIR+"/../data/scrape.json", "utf8");
         let jobData: JobData = JSON.parse(read);
         for (let item of jobData.jobsFound) {
             let urlRoot = item.url.split("?")[0];

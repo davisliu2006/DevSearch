@@ -2,7 +2,7 @@
     "name": "WebScraper",
     "version": "1.0.0",
     "scripts": {
-        "webserver": "nodemon site/app.ts",
+        "webserver": "cd site && nodemon app.ts",
         "scrape": "cd web_scrape && tsc scrape.ts --outDir js && node js/web_scrape/scrape.js"
     },
     "dependencies": {
