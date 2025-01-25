@@ -1,24 +1,9 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 import * as fs from "fs";
+import {JobData, JobInfo} from "../include/types";
 
 console.log("hi");
-
-class JobInfo {
-    url: string;
-    classification: Array<string>;
-    public constructor(url: string, classification: Array<string>) {
-        this.url = url;
-        this.classification = classification;
-    }
-    public get_tags() {
-        let tags: Array<string> = [];
-        this.classification.forEach(function(name) {
-            tags.push(name);
-        });
-        return tags;
-    }
-}
 
 function classify(html: string): Array<string> {
     let $ = cheerio.load(html);
@@ -70,7 +55,7 @@ async function scrape(targetUrls: Array<string>, domainMatch: Array<string>): Pr
         const $ = cheerio.load(html);
         let linkElems = $("a[href]");
         for (let i = 0; i < linkElems.length; i++) {
-            let subUrl = linkElems[i].attribs["href"];
+            let subUrl = linkElems[i].attribs["href"].split("?")[0];
             if (is_domainMatch(subUrl)) {
                 console.log(i+1+"/"+linkElems.length+": "+subUrl);
                 subUrls.push(subUrl);
@@ -98,15 +83,14 @@ async function scrape(targetUrls: Array<string>, domainMatch: Array<string>): Pr
 
 async function main() {
     let targetUrls = [
-        "https://www.linkedin.com/jobs/search?keywords=software"
+        "https://www.linkedin.com/jobs/search?keywords=software",
+        "https://www.linkedin.com/jobs/search?keywords=computer"
     ];
     let domainMatch = [
         "www.linkedin.com/jobs"
     ];
     let jobsFound = await scrape(targetUrls, domainMatch);
-    let write = JSON.stringify({
-        "jobsFound": jobsFound
-    });
+    let write = JSON.stringify(new JobData(jobsFound));
     fs.writeFileSync("data/scrape.json", write);
 }
 main()

@@ -1,4 +1,7 @@
 import * as express from "express";
+import * as fs from "fs";
+import {JobData, JobInfo} from "../include/types";
+import * as lib from "../include/lib"
 
 let app = express();
 app.set("view engine", "ejs");
@@ -10,7 +13,32 @@ app.get("/", function(req, res) {
 });
 app.get("/index", function(req, res) {
     let searchQuery = req.query["query"];
-    res.render("index.ejs", {searchQuery});
+    let searchData: Array<JobInfo> = [];
+    if (typeof(searchQuery) == "string") {
+        let queryTokens = searchQuery.split(' ');
+        let read = fs.readFileSync("data/scrape.json", "utf8");
+        let jobData: JobData = JSON.parse(read);
+        for (let item of jobData.jobsFound) {
+            let urlRoot = item.url.split("?")[0];
+            for (let token of queryTokens) {
+                if (token.length >= 2 && token[0] == '"' && token[token.length-1] == '"') {
+                    let innerToken = token.substring(1, token.length-1);
+                    if (lib.split_by_words(urlRoot).includes(innerToken)) {
+                        searchData.push(item);
+                        break;
+                    }
+                } else {
+                    if (urlRoot.includes(token)) {
+                        searchData.push(item);
+                        break;
+                    }
+                }
+            }
+        }
+    } else {
+        searchQuery = "";
+    }
+    res.render("index.ejs", {searchQuery, searchData});
 });
 
 app.get("/query", function(req, res) {

@@ -1,5 +1,4 @@
 async function loadGlobal() {
-    console.log("Loading navbar");
     let response = await fetch("html/global.html");
     let text = await response.text();
     let global = document.getElementById("global");
