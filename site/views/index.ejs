@@ -46,10 +46,13 @@
             <!--results-->
             <div id="results" class="text-block">
                 <h3>Results</h2>
-                <p>Showing results for: "<%= searchQuery %>": <%= searchData.length %></p>
+                <p>
+                    Showing results for: "<%= searchQuery %>": <%= searchData.length %>
+                </p>
                 <% for (let job of searchData) { %>
                     <% let urlRoot = job.url.split("?")[0]; %>
                     <p>
+                        <%= job.title %><br>
                         <%= urlRoot %>
                     </p>
                 <% } %>

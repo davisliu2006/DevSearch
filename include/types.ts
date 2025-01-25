@@ -1,8 +1,10 @@
 export class JobInfo {
+    title: string;
     url: string;
     classification: Array<string>;
 
-    public constructor(url: string = "", classification: Array<string> = []) {
+    public constructor(title: string = "", url: string = "", classification: Array<string> = []) {
+        this.title = title;
         this.url = url;
         this.classification = classification;
     }

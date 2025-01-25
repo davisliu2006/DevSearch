@@ -5,8 +5,7 @@ import {JobData, JobInfo} from "../include/types";
 
 const DIR = process.cwd();
 
-function classify(html: string): Array<string> {
-    let $ = cheerio.load(html);
+function classify($: cheerio.CheerioAPI): Array<string> {
     let textElems = $("h1, h2, h3, h4, h5, p");
     let val: Array<string> = [];
     let categories: Array<[string, Array<string>]> = [
@@ -48,6 +47,7 @@ async function scrape(targetUrls: Array<string>, domainMatch: Array<string>): Pr
         return false;
     }
 
+    const SCRAPE_LIMIT = 10000;
     let subUrls: Array<string> = [];
     for (let url of targetUrls) {
         let req = await axios.get(url);
@@ -56,7 +56,7 @@ async function scrape(targetUrls: Array<string>, domainMatch: Array<string>): Pr
         let linkElems = $("a[href]");
         for (let i = 0; i < linkElems.length; i++) {
             let subUrl = linkElems[i].attribs["href"].split("?")[0];
-            if (is_domainMatch(subUrl) && subUrls.length < 10) {
+            if (is_domainMatch(subUrl) && subUrls.length < SCRAPE_LIMIT) {
                 console.log(i+1+"/"+linkElems.length+": "+subUrl);
                 subUrls.push(subUrl);
             }
@@ -70,13 +70,15 @@ async function scrape(targetUrls: Array<string>, domainMatch: Array<string>): Pr
         console.log(`Scraping... ${url}`);
         let req = await axios.get(url);
         let html: string = req.data;
-        let classification = classify(html);
-        let ji = new JobInfo(url, classification);
+        let $ = cheerio.load(html);
+        let title = $("title").text();
+        let classification = classify($);
+        let ji = new JobInfo(title, url, classification);
         jobsFound.push(ji);
     }
     for (let i = 0; i < jobsFound.length; i++) {
         let ji = jobsFound[i];
-        console.log(`${i+1}/${jobsFound.length} ${ji.url} [${ji.classification}]`);
+        console.log(`${i+1}/${jobsFound.length} ${ji.title} ${ji.url} [${ji.classification}]`);
     }
     return jobsFound;
 }
