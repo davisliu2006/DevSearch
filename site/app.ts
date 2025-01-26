@@ -72,7 +72,7 @@ app.get("/search", function(req, res) {
     if (searchData.length > 100) {
         searchData.length = 100;
     }
-    res.render("search.ejs", {searchQuery, searchData, categories});
+    res.render("search.ejs", {searchQuery, searchTags, searchData, categories});
 });
 
 app.get("/about", function(req, res) {

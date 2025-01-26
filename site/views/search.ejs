@@ -99,6 +99,14 @@
                 <h3>Results</h2>
                 <p>
                     Showing results for: "<%= searchQuery %>" (<%= searchData.length %>)
+                    <br>
+                    <% if (searchTags) { %>
+                        <% for (let tag of searchTags) { %>
+                            <span class="search-tag">
+                                <%= tag %>
+                            </span>
+                        <% } %>
+                    <% } %>
                 </p>
                 <% for (let job of searchData) { %>
                     <% let urlRoot = job.url.split("?")[0]; %>
