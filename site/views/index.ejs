@@ -30,47 +30,17 @@
             <div id="search" class="text-block">
                 <h1 id="search-title">Search</h1>
                 <form id="search-bar-holder" onSubmit="return submitSearch();">
-                    <input id="search-bar" type="text" placeholder="Search" value="<%= searchQuery %>">
+                    <input id="search-bar" type="text" placeholder="Search" value="">
                     <button id="search-btn" class="button" type="submit">>></button>
                 </form>
                 <script>
                     function submitSearch() {
                         let searchBar = document.querySelector("#search-bar");
                         let searchBtn = document.querySelector("#search-btn");
-                        window.location.href = `/index?query=${searchBar.value}`;
+                        window.location.href = `/search?query=${searchBar.value}`;
                         return false;
                     }
                 </script>
-            </div>
-
-            <!--results-->
-            <div id="results" class="text-block">
-                <h3>Results</h2>
-                <p>
-                    Showing results for: "<%= searchQuery %>" (<%= searchData.length %>)
-                </p>
-                <% for (let job of searchData) { %>
-                    <% let urlRoot = job.url.split("?")[0]; %>
-                    <div class="search-result">
-                        <p>
-                            <b><a target="_blank" href="<%= urlRoot %>">
-                                <%= job.title %>
-                            </a></b><br>
-                            <a target="_blank" href="<%= urlRoot %>">
-                                <%= urlRoot %>
-                            </a><br>
-                            Tags:
-                            <% if (job.classification.length == 0) { %>
-                                (none)
-                            <% } %>
-                            <% for (let cls of job.classification) { %>
-                                <span class="search-tag">
-                                    <%= cls %>
-                                </span>
-                            <% } %>
-                        </p>
-                    </div>
-                <% } %>
             </div>
 
             <!--footer-->

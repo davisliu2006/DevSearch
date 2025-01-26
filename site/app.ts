@@ -14,6 +14,9 @@ app.get("/", function(req, res) {
     res.redirect("/index");
 });
 app.get("/index", function(req, res) {
+    res.render("index.ejs");
+});
+app.get("/search", function(req, res) {
     let searchQuery = req.query["query"];
     let searchData: Array<JobInfo> = [];
     if (typeof(searchQuery) == "string") {
@@ -49,7 +52,7 @@ app.get("/index", function(req, res) {
     } else {
         searchQuery = "";
     }
-    res.render("index.ejs", {searchQuery, searchData});
+    res.render("search.ejs", {searchQuery, searchData});
 });
 
 app.get("/query", function(req, res) {
