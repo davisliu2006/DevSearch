@@ -1,25 +1,14 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 import * as fs from "fs";
-import {JobData, JobInfo} from "../include/types";
+import {JobData, JobInfo, tagCategories} from "../include/types";
 
 const DIR = process.cwd();
 
 function classify($: cheerio.CheerioAPI): Array<string> {
     let textElems = $("h1, h2, h3, h4, h5, p");
     let val: Array<string> = [];
-    let categories: Array<[string, Array<string>]> = [
-        ["software", ["software"]],
-        ["web", ["web", "web-dev"]],
-        ["frontend", ["frontend", "front-end", "front end"]],
-        ["backend", ["backend", "back-end", "back end"]],
-        ["embedded", ["embedded", "firmware"]],
-        ["system", ["operating system"]],
-        ["c++", ["c++"]],
-        ["java", ["java"]],
-        ["javascript", ["javascript", "typescript"]],
-        ["c#", ["c#", ".net"]]
-    ]
+    let categories: Array<[string, Array<string>]> = tagCategories;
     for (let [name, keywords] of categories) {
         let flag = false;
         let elemText = textElems.text();

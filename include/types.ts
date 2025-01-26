@@ -1,3 +1,16 @@
+export let tagCategories: Array<[string, Array<string>]> = [
+    ["software", ["software"]],
+    ["web", ["web", "web-dev"]],
+    ["frontend", ["frontend", "front-end", "front end"]],
+    ["backend", ["backend", "back-end", "back end"]],
+    ["embedded", ["embedded", "firmware"]],
+    ["system", ["operating system"]],
+    ["c++", ["c++"]],
+    ["java", ["java"]],
+    ["javascript", ["javascript", "typescript"]],
+    ["c#", ["c#", ".net"]]
+]
+
 export class JobInfo {
     title: string;
     url: string;

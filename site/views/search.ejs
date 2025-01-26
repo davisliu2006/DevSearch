@@ -31,7 +31,9 @@
                 <h1 id="search-title">Search</h1>
                 <form id="search-bar-holder" onSubmit="return submitSearch();">
                     <input id="search-bar" type="text" placeholder="Search" value="<%= searchQuery %>">
-                    <button id="search-btn" class="button" type="submit">>></button>
+                    <button id="search-btn" class="button" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
                 </form>
                 <script>
                     function submitSearch() {

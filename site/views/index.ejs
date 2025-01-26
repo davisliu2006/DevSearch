@@ -16,6 +16,7 @@
 
         <!--header scripts-->
         <script src="src/global.js"></script>
+        <script src="src/collapsables.js"></script>
     </head>
 
     <body>
@@ -27,11 +28,47 @@
         <!--main-->
         <div id="main">
             <!--search-->
-            <div id="search" class="text-block">
+            <div id="search" class="text-block" style="margin-top: 200px">
                 <h1 id="search-title">Search</h1>
                 <form id="search-bar-holder" onSubmit="return submitSearch();">
                     <input id="search-bar" type="text" placeholder="Search" value="">
-                    <button id="search-btn" class="button" type="submit">>></button>
+                    <button id="search-btn" class="button" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <br><br>
+                    <div class="relative inline-block" style="width: 50%;">
+                        <div class="relative" style="width: 100%;">
+                            <div id="tag-collapsable" class="collapsable">
+                                <div class="collapsable-frame td-left">
+                                    <div class="collapsable-inner">
+                                        <p><b>Search Tags:</b></p>
+                                        <div class="inline-block">
+                                            <input type="checkbox" name="" id="">
+                                            <label for="">
+                                                <span class="minor">Select all:</span>
+                                            </label>
+                                        </div>
+                                        <br>
+                                        <% for (let cls of categories) { %>
+                                            <div class="inline-block">
+                                                <input type="checkbox" name="" id="">
+                                                <label for="">
+                                                    <span class="minor"><%= cls[0] %>&emsp;</span>
+                                                </label>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="collapsable-btn">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                    Advanced Search Options
+                                </div>
+                                <script>
+                                    initCollapsable("#tag-collapsable");
+                                </script>
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <script>
                     function submitSearch() {

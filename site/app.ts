@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as fs from "fs";
-import {JobData, JobInfo} from "../include/types";
+import {JobData, JobInfo, tagCategories} from "../include/types";
 import * as lib from "../include/lib";
 
 const DIR = process.cwd();
@@ -14,11 +14,14 @@ app.get("/", function(req, res) {
     res.redirect("/index");
 });
 app.get("/index", function(req, res) {
-    res.render("index.ejs");
+    let categories = tagCategories;
+    res.render("index.ejs", {categories});
 });
+
 app.get("/search", function(req, res) {
     let searchQuery = req.query["query"];
     let searchData: Array<JobInfo> = [];
+    let categories = tagCategories;
     if (typeof(searchQuery) == "string") {
         let queryTokens = searchQuery.split(' ');
         let read = fs.readFileSync(DIR+"/../data/scrape.json", "utf8");
@@ -37,12 +40,18 @@ app.get("/search", function(req, res) {
                     } else if (lib.split_by_words(title).includes(innerToken)) {
                         searchData.push(item);
                         break;
+                    } else if (item.classification.includes(innerToken)) {
+                        searchData.push(item);
+                        break;
                     }
                 } else {
                     if (urlRoot.includes(token)) {
                         searchData.push(item);
                         break;
                     } else if (title.includes(token)) {
+                        searchData.push(item);
+                        break;
+                    } else if (item.classification.includes(token)) {
                         searchData.push(item);
                         break;
                     }
@@ -52,12 +61,12 @@ app.get("/search", function(req, res) {
     } else {
         searchQuery = "";
     }
-    res.render("search.ejs", {searchQuery, searchData});
+    if (searchData.length > 100) {
+        searchData.length = 100;
+    }
+    res.render("search.ejs", {searchQuery, searchData, categories});
 });
 
-app.get("/query", function(req, res) {
-    
-});
 app.get("/*", function(req, res) {
     let params = req.params;
     res.render("404.ejs", {params});
