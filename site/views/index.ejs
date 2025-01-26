@@ -38,25 +38,27 @@
                     <br><br>
                     <div class="relative inline-block" style="width: 50%;">
                         <div class="relative" style="width: 100%;">
-                            <div id="tag-collapsable" class="collapsable">
+                            <div id="advanced-options" class="collapsable">
                                 <div class="collapsable-frame td-left">
                                     <div class="collapsable-inner">
-                                        <p><b>Search Tags:</b></p>
-                                        <div class="inline-block">
-                                            <input type="checkbox" name="" id="">
-                                            <label for="">
-                                                <span class="minor">Select all:</span>
-                                            </label>
-                                        </div>
-                                        <br>
-                                        <% for (let cls of categories) { %>
+                                        <div id="options-tags">
+                                            <p><b>Filter Tags:</b></p>
                                             <div class="inline-block">
-                                                <input type="checkbox" name="" id="">
+                                                <input type="checkbox" name="All" id="">
                                                 <label for="">
-                                                    <span class="minor"><%= cls[0] %>&emsp;</span>
+                                                    <span class="minor">Select all:</span>
                                                 </label>
                                             </div>
-                                        <% } %>
+                                            <br>
+                                            <% for (let cls of categories) { %>
+                                                <div class="inline-block">
+                                                    <input type="checkbox" name="<%= cls[0] %>" class="option-tag">
+                                                    <label for="">
+                                                        <span class="minor"><%= cls[0] %>&emsp;</span>
+                                                    </label>
+                                                </div>
+                                            <% } %>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="collapsable-btn">
@@ -64,7 +66,7 @@
                                     Advanced Search Options
                                 </div>
                                 <script>
-                                    initCollapsable("#tag-collapsable");
+                                    initCollapsable("#advanced-options");
                                 </script>
                             </div>
                         </div>
@@ -74,7 +76,19 @@
                     function submitSearch() {
                         let searchBar = document.querySelector("#search-bar");
                         let searchBtn = document.querySelector("#search-btn");
-                        window.location.href = `/search?query=${searchBar.value}`;
+                        let checkBoxes = document.querySelectorAll("#options-tags .option-tag");
+                        let tags = "";
+                        for (let checkBox of checkBoxes) {
+                            if (checkBox.checked) {
+                                if (tags.length != 0) {tags += ' ';}
+                                tags += checkBox.name;
+                            }
+                        }
+                        if (tags.length == 0) {
+                            window.location.href = `/search?query=${encodeURIComponent(searchBar.value)}`;
+                        } else {
+                            window.location.href = `/search?query=${encodeURIComponent(searchBar.value)}&tags=${encodeURIComponent(tags)}`;
+                        }
                         return false;
                     }
                 </script>

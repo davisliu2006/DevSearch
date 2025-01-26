@@ -20,6 +20,7 @@ app.get("/index", function(req, res) {
 
 app.get("/search", function(req, res) {
     let searchQuery = req.query["query"];
+    let searchTags = (typeof(req.query["tags"]) == "string"? req.query["tags"].split(' ') : undefined);
     let searchData: Array<JobInfo> = [];
     let categories = tagCategories;
     if (typeof(searchQuery) == "string") {
@@ -30,6 +31,13 @@ app.get("/search", function(req, res) {
             let title = item.title.toLowerCase();
             let url = item.url.toLowerCase();
             let urlRoot = url.split("?")[0];
+            if (searchTags) {
+                let flag = false;
+                for (let tag of searchTags) {
+                    if (item.classification.includes(tag)) {flag = true;}
+                }
+                if (!flag) {continue;}
+            }
             for (let token of queryTokens) {
                 token = token.toLowerCase();
                 if (token.length >= 2 && token[0] == '"' && token[token.length-1] == '"') {
@@ -65,6 +73,10 @@ app.get("/search", function(req, res) {
         searchData.length = 100;
     }
     res.render("search.ejs", {searchQuery, searchData, categories});
+});
+
+app.get("/about", function(req, res) {
+    res.render("about.ejs")
 });
 
 app.get("/*", function(req, res) {
