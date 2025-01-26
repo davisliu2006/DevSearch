@@ -47,14 +47,29 @@
             <div id="results" class="text-block">
                 <h3>Results</h2>
                 <p>
-                    Showing results for: "<%= searchQuery %>": <%= searchData.length %>
+                    Showing results for: "<%= searchQuery %>" (<%= searchData.length %>)
                 </p>
                 <% for (let job of searchData) { %>
                     <% let urlRoot = job.url.split("?")[0]; %>
-                    <p>
-                        <%= job.title %><br>
-                        <%= urlRoot %>
-                    </p>
+                    <div class="search-result">
+                        <p>
+                            <b><a target="_blank" href="<%= urlRoot %>">
+                                <%= job.title %>
+                            </a></b><br>
+                            <a target="_blank" href="<%= urlRoot %>">
+                                <%= urlRoot %>
+                            </a><br>
+                            Tags:
+                            <% if (job.classification.length == 0) { %>
+                                (none)
+                            <% } %>
+                            <% for (let cls of job.classification) { %>
+                                <span class="search-tag">
+                                    <%= cls %>
+                                </span>
+                            <% } %>
+                        </p>
+                    </div>
                 <% } %>
             </div>
 

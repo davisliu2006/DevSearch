@@ -68,13 +68,17 @@ async function scrape(targetUrls: Array<string>, domainMatch: Array<string>): Pr
     for (let i = 0; i < subUrls.length; i++) {
         let url = subUrls[i];
         console.log(`Scraping... ${url}`);
-        let req = await axios.get(url);
-        let html: string = req.data;
-        let $ = cheerio.load(html);
-        let title = $("title").text();
-        let classification = classify($);
-        let ji = new JobInfo(title, url, classification);
-        jobsFound.push(ji);
+        try {
+            let req = await axios.get(url);
+            let html: string = req.data;
+            let $ = cheerio.load(html);
+            let title = $("title").text();
+            let classification = classify($);
+            let ji = new JobInfo(title, url, classification);
+            jobsFound.push(ji);
+        } catch {
+            console.log("Scrape failed.");
+        }
     }
     for (let i = 0; i < jobsFound.length; i++) {
         let ji = jobsFound[i];
@@ -91,8 +95,12 @@ async function main() {
     let domainMatch = [
         "www.linkedin.com/jobs/view"
     ];
-    let jobsFound = await scrape(targetUrls, domainMatch);
-    let write = JSON.stringify(new JobData(jobsFound));
-    fs.writeFileSync(DIR+"/../data/scrape.json", write);
+    try {
+        let jobsFound = await scrape(targetUrls, domainMatch);
+        let write = JSON.stringify(new JobData(jobsFound));
+        fs.writeFileSync(DIR+"/../data/scrape.json", write);
+    } catch {
+        console.log("An error occurred.");
+    }
 }
 main()

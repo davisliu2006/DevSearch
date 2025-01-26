@@ -33,12 +33,9 @@ ul {
 }
 a {
     text-decoration: none;
-    color: rgb(200, 200, 200, 0.5);
+    color: rgb(0, 100, 150);
 }
 .link {
-    font-weight: bold;
-    color: rgb(200, 200, 200, 0.5);
-    transition: color 0.5s;
     /*animation*/
     /*background-image: linear-gradient(to right, rgb(200, 200, 200, 1) 0%, rgb(200, 200, 200, 1) 50%, rgb(200, 200, 200, 1) 100%);
     background-position: 0% 100%; background-size: 0% 0px; background-repeat: no-repeat;
