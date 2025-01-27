@@ -37,3 +37,11 @@ export class JobData {
         this.jobsFound = jobsFound;
     }
 }
+
+export class DomainInfo {
+    url: string;
+    title: string;
+    location: string;
+    compensation: string;
+    description: string;
+}

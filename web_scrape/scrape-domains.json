@@ -1,0 +1,11 @@
+{
+    "domains": [
+        {
+            "url": "https://www.linkedin.com/jobs/view",
+            "title": ".top-card-layout__title",
+            "location": ".topcard__flavor-row",
+            "compensation": ".compensation__salary", 
+            "description": ".description__text"
+        }
+    ]
+}
