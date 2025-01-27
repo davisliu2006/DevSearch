@@ -82,9 +82,9 @@ async function scrape(targetUrls: Array<string>, domainMatch: Array<DomainInfo>)
             let ji = new JobInfo(title, url, classification);
             if (match) { // stop compiler from complaining
                 ji.posTitle = lib.prune_spaces($(match.title).text());
-                ji.location = lib.prune_spaces($(match.location).text());
+                ji.location = lib.prune_spaces($(match.location).first().text());
                 ji.compensation = lib.prune_spaces($(match.compensation).text());
-                ji.description = lib.prune_spaces($(match.description).text()).substring(0, 20);
+                // ji.description = lib.prune_spaces($(match.description).text()).substring(0, 20);
             }
             jobsFound.push(ji);
         } catch {

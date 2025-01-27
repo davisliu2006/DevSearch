@@ -1,14 +1,17 @@
 export let tagCategories: Array<[string, Array<string>]> = [
     ["software", ["software"]],
-    ["web", ["web", "web-dev"]],
-    ["frontend", ["frontend", "front-end", "front end"]],
+    ["ai", ["machine learning", "neural network"]],
     ["backend", ["backend", "back-end", "back end"]],
     ["embedded", ["embedded", "firmware"]],
+    ["frontend", ["frontend", "front-end", "front end"]],
+    ["full-stack", ["fullstack", "full-stack", "full stack"]],
     ["system", ["operating system"]],
+    ["web", ["web", "web-dev"]],
     ["c++", ["c++"]],
+    ["c#", ["c#", ".net"]],
     ["java", ["java"]],
     ["javascript", ["javascript", "typescript"]],
-    ["c#", ["c#", ".net"]]
+    ["python", ["python"]]
 ]
 
 export class JobInfo {
