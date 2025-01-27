@@ -118,6 +118,8 @@
                             <a target="_blank" href="<%= urlRoot %>">
                                 <%= urlRoot %>
                             </a><br>
+                            Location: <%= job.location %>
+                            Compensation Estimate: <%= job.compensation %><br>
                             Tags:
                             <% if (job.classification.length == 0) { %>
                                 (none)
@@ -127,6 +129,9 @@
                                     <%= cls %>
                                 </span>
                             <% } %>
+                            <br>
+                            Description (cropped):
+                            <%= job.description %>
                         </p>
                     </div>
                 <% } %>

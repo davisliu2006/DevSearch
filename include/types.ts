@@ -12,26 +12,23 @@ export let tagCategories: Array<[string, Array<string>]> = [
 ]
 
 export class JobInfo {
-    title: string;
-    url: string;
-    classification: Array<string>;
+    title: string = "";
+    url: string = "";
+    classification: Array<string> = [];
+    posTitle: string = "";
+    location: string = "";
+    compensation: string = "";
+    description: string = "";
 
     public constructor(title: string = "", url: string = "", classification: Array<string> = []) {
         this.title = title;
         this.url = url;
         this.classification = classification;
     }
-    public get_tags() {
-        let tags: Array<string> = [];
-        this.classification.forEach(function(name) {
-            tags.push(name);
-        });
-        return tags;
-    }
 }
 
 export class JobData {
-    jobsFound: Array<JobInfo>;
+    jobsFound: Array<JobInfo> = [];
 
     constructor(jobsFound: Array<JobInfo> = []) {
         this.jobsFound = jobsFound;
@@ -39,9 +36,11 @@ export class JobData {
 }
 
 export class DomainInfo {
-    url: string;
-    title: string;
-    location: string;
-    compensation: string;
-    description: string;
+    url: string = "";
+    title: string = "";
+    location: string = "";
+    compensation: string = "";
+    description: string = "";
+
+    constructor() {}
 }
