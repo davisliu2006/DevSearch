@@ -183,7 +183,7 @@ span.unbold {
     float: right;
     margin: 18px 50px 5px 20px;
 }
-/* @media screen and (max-width: 1000px) {
+@media screen and (max-width: 1000px) {
     #top-bar-logo {
         padding-left: 30px; padding-right: 20px;
     }
@@ -222,7 +222,7 @@ span.unbold {
         opacity: 70%;
         transition: opacity 0.3s;
     }
-} */
+}
 
 /*footer*/
 #footer {

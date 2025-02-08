@@ -76,8 +76,12 @@ app.get("/search", function(req, res) {
 });
 
 app.get("/about", function(req, res) {
-    res.render("about.ejs")
+    res.render("about.ejs");
 });
+
+app.get("/login", function(req, res) {
+    res.render("login.ejs");
+})
 
 app.get("/*", function(req, res) {
     let params = req.params;
