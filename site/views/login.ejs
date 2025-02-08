@@ -8,6 +8,7 @@
         <title>DevSearch - About</title>
         <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="css/global.css">
+        <link rel="stylesheet" href="css/login.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
         <style>
             
@@ -15,6 +16,7 @@
 
         <!--header scripts-->
         <script src="src/global.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
     </head>
 
     <body>
@@ -25,12 +27,18 @@
 
         <!--main-->
         <div id="main">
-            <!--about-->
-            <div id="about" class="text-block">
-                <h2>About DevSearch</h2>
-                <p>
-                    DevSearch is a prototype search engine for developer job postings.
-                </p>
+            <!--login-->
+            <div id="about" class="text-block td-center">
+                <div id="login">
+                    <h3>Log In With Google</h3>
+                    <p>
+                        Log in to bookmark job postings.
+                    </p>
+                    <p>
+                        DevSearch uses Google Authentification to avoid storing user password information.
+                    </p>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
             </div>
 
             <!--footer-->
