@@ -7,8 +7,8 @@ const DIR = process.cwd();
 
 let app = express();
 app.set("view engine", "ejs");
-app.set("views", __dirname+"/views");
-app.use(express.static(__dirname + "/static"));
+app.set("views", DIR+"/views");
+app.use(express.static(DIR+"/static"));
 
 app.get("/", function(req, res) {
     res.redirect("/index");
