@@ -1,1 +1,0 @@
-cd site && node js/site/app.js || echo "site run failed"
