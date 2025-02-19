@@ -109,7 +109,7 @@ async function main() {
     try {
         let jobsFound = await scrape(targetUrls, domainMatch);
         let write = JSON.stringify(new JobData(jobsFound));
-        fs.writeFileSync(DIR+"/../data/scrape.json", write);
+        fs.writeFileSync(DIR+"/../data/scrape.json", write, {flag: "w+"});
     } catch (e) {
         console.log("An error occurred:", e);
     }
